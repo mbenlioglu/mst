@@ -3,7 +3,7 @@
 
 SRC_DIR			:= src
 TEST_DIR		:= test
-_SOURCES		:= main.c
+_SOURCES		:= main.cpp
 SOURCES			:= $(patsubst %,$(SRC_DIR)/%,$(_SOURCES))
 _TEST_SOURCES	:=
 TEST_SOURCES	:= $(patsubst %,$(TEST_DIR)/%,$(_SOURCES))
@@ -16,7 +16,7 @@ _TESTS			:= $(basename $(TEST_SOURCES))
 TESTS			:= $(patsubst %,$(TEST_BUILD_DIR)/%,$(_TESTS))
 
 
-CXX_FLAGS		:= -std=c++17 -O3 -march=native -Iinclude
+CXX_FLAGS		:= -std=c++17 -O3 -march=native -Iinclude -Isrc
 LD_FLAGS		:=
 CMAKE_VERSION := $(shell cmake --version | head -n1 | awk '{print $$NF; print 3.13}' | sort -V | head -n1)
 
