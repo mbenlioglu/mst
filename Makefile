@@ -6,7 +6,7 @@ TEST_DIR		:= test
 _SOURCES		:= main.cpp
 SOURCES			:= $(patsubst %,$(SRC_DIR)/%,$(_SOURCES))
 _TEST_SOURCES	:=
-TEST_SOURCES	:= $(patsubst %,$(TEST_DIR)/%,$(_SOURCES))
+TEST_SOURCES	:= $(patsubst %,$(TEST_DIR)/%,$(_TEST_SOURCES))
 
 OBJDIR			:= build/obj
 TEST_BUILD_DIR	:= $(OBJDIR)/$(TEST_DIR)
@@ -20,7 +20,7 @@ CXX_FLAGS		:= -std=c++17 -O3 -march=native -Iinclude -Isrc
 LD_FLAGS		:=
 CMAKE_VERSION := $(shell cmake --version | head -n1 | awk '{print $$NF; print 3.13}' | sort -V | head -n1)
 
-ifneq ($(CMAKE_VERSION),3.13)
+ifeq ($(CMAKE_VERSION),3.13)
 all: mst.cmake
 test: _test.cmake
 else
