@@ -66,12 +66,14 @@ before running above commands.
 
 ### Plotting Results
 
-A python script is provided to regenerate the plots and from scratch. Following
-command will install prerequisites and regenerate the plots under `results` directory
+A python script is provided to regenerate the plots and from scratch. Running
+the following commands from project root will install prerequisites and regenerate
+the plots under `results` directory
+
 ```shell script
 cd results
 pip install -r requirements.txt
-python3 plotter.py
+python3 results/plotter.py
 ``` 
 
 ## Algorithm and Discussion
@@ -93,7 +95,6 @@ edge with this edge otherwise our MST is already optimal and we make no changes.
 Finding the unique path and the maximum of that path takes `O(V)` time, which is
 the cost of this operation.
 
-![Static MST as the Number of Edges increase](/results/static.pdf)
-![Insertion as the Number of Edges increase](/results/insertion.pdf)
+![Static MST as the Number of Edges increase](/results/plots.pdf)
 
 The results in the graphs seems they match the expected results, both dynamic and static
