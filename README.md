@@ -1,5 +1,7 @@
 # Minimum Spanning Tree
 
+Minimum spanning tree calculation and dynamic re-calculation by using Kruskal's and
+Prim's algorithms
 
 **Implemented by:**
 
@@ -74,6 +76,24 @@ python3 plotter.py
 
 ## Algorithm and Discussion
 
+As of Oct 4. Kruskal's algorithm has been implemented. Without using Fibonacci heap,
+both have the same complexity of `O(E*log(V))`. However if Fibonacci heap is used with
+Prim's algorithm it's complexity becomes `O(E+V*log(V))` The reason that I implemented
+Kruskal first is that it seemed easier to implement from my initial intuition. Then I
+stick with that decision.
+
+**Re-compute MST:**
+
+When a new edge is added to the current MST. This forms _exactly one cycle_ in the
+MST. Let `e = (u,v)` be the new edge with the weight `w`. In order to update the
+MST we first find the unique path from `u` to `v` in the existing MST. Then we find
+the edge with the maximum weight `w*` in this path. If `w < w*` we replace the new
+edge with this edge otherwise our MST is already optimal and we make no changes.
+
+Finding the unique path and the maximum of that path takes `O(V)` time, which is
+the cost of this operation.
+
 ![Static MST as the Number of Edges increase](/results/static.pdf)
 ![Insertion as the Number of Edges increase](/results/insertion.pdf)
 
+The results in the graphs seems they match the expected results, both dynamic and static
