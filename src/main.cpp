@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Create graph object from file
-    auto graph = Graph(argv[1]);
+    auto graph = Graph<KRUSKAL>(argv[1]);
 
 
     // Results storage
