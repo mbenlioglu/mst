@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <queue>
 #include <unordered_map>
+#include <unordered_set>
 
 
 struct perfData {
@@ -22,7 +23,8 @@ enum Algorithm {
 };
 
 struct Edge {
-    unsigned src, dest, weight;
+    unsigned src, dest;
+    int weight;
 };
 
 template<Algorithm alg = KRUSKAL>
@@ -30,14 +32,19 @@ class Graph {
 private:
     // Timing
     using clock = std::chrono::high_resolution_clock;
-    using duration = std::chrono::duration<double, std::milli>;
+    using duration = std::chrono::duration<double>; // in seconds
+
     unsigned numVertices{}, numEdges{};
+    int mstWeight{};
+    std::vector<Edge> edgeList;
+    std::vector<Edge> edgeHeap;
+    std::unordered_map<unsigned, std::pair<unsigned, int> > MST;
+
+    // Prim
 
     // Functions
     perfData kruskalMST();
-    perfData recomputeKruskalMST(Edge e);
     perfData primsMST();
-    perfData recomputePrimsMST(Edge e);
 public:
     Graph() = default;
     explicit Graph(std::string &filename);
