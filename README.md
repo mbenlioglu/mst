@@ -6,7 +6,7 @@ Prim's algorithms
 **Implemented by:**
 
  * [M.Mucahid Benlioglu](https://github.gatech.edu/mbenlioglu3)
- 
+
 ## Getting Started
 
 **Prerequisites:**
@@ -22,7 +22,7 @@ but it's untested)_
 
  - [Python 3](https://www.python.org/) (tested with version 3.8.2)
  - [pip](https://pip.pypa.io/en/stable/) (tested with version 20.2.2)
- 
+
 ### Installation and Running
 
 There is a Makefile provided for the project. From the project source running running
@@ -74,7 +74,7 @@ the plots under `results` directory
 cd results
 pip install -r requirements.txt
 python3 results/plotter.py
-``` 
+```
 
 ## Algorithm and Discussion
 
