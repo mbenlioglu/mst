@@ -30,7 +30,7 @@ Graph<alg>::Graph(std::string &filename) {
         std::make_heap(edgeHeap.begin(), edgeHeap.end(), [](const Edge left, const Edge right) {
             return left.weight > right.weight;
         });
-        MST.reserve(numVertices);
+        MST.resize(numVertices);
     } else {
 
     }
@@ -56,28 +56,75 @@ perfData Graph<alg>::computeMST() {
 }
 
 /**
+ * Find the unique path between u and v vertices in a BFS manner.
+ * @param u     Source vertex
+ * @param v     Destination vertex
+ * @return      Path between source and destination
+ */
+template<Algorithm alg>
+auto Graph<alg>::findPath(unsigned u, unsigned v) {
+    std::unordered_set<unsigned> visited;
+    std::queue<std::pair<unsigned, unsigned> > q;
+    std::unordered_map<unsigned, std::vector<Edge> > paths;
+
+    // Push source vertex to search queue
+    q.push({u, std::numeric_limits<unsigned>::max()});
+    paths[u] = {};
+    while (!q.empty()) {
+        // Get first element from queue
+        auto [parent, src] = q.front();
+        q.pop();
+
+        // mark as visited
+        visited.insert(parent);
+
+        // Add neighbors of children to queue
+        for (auto &child: MST[parent]){
+            if (visited.find(child.first) == visited.end()) {
+                q.push({child.first, parent});
+
+                // Update paths
+                paths[child.first] = paths[parent];
+                paths[child.first].push_back({parent, child.first, child.second});
+            }
+        }
+    }
+    paths[v].erase(paths[v].begin());
+    return std::move(paths[v]);
+}
+
+
+/**
  * @brief Update the existing MST with the additional edge provided.
  * @param e     Edge to be added
  * @return      perfData struct that has elapsed time and MST weight
  */
 template<Algorithm alg>
-perfData Graph<alg>::recomputeMST(Edge e) {
+perfData Graph<alg>::recomputeMST(const Edge &e) {
     auto start = clock::now();
 
-    Edge maxEdge = e;
     // Find the unique path between e.src and e.dest, get the max edge along the path
-    do {
-        auto v = MST.find(maxEdge.src);
-        if (v == MST.end()) v = MST.find(maxEdge.dest);
-        if (v == MST.end()) throw std::runtime_error("Invalid Edge!");
-        if (v->second.second > maxEdge.weight) maxEdge = {v->first, v->second.first, v->second.second};
-    } while (v->first == e.dest);
+    auto path = findPath(e.src, e.dest);
 
     // If the max edge along the path is greater than the new edge, replace.
-    if (maxEdge.weight > e.weight) {
-        MST.erase(maxEdge.src);
-        MST.insert({e.src, {e.dest, e.weight}});
-        mstWeight -= maxEdge.weight - e.weight;
+    auto maxEdge = std::max_element(path.begin(), path.end(), [](const Edge left, const Edge right) {
+        return left.weight > right.weight;
+    });
+    if (maxEdge->weight > e.weight) {
+        // Remove maxEdge from MST
+        MST[maxEdge->src].erase(std::find_if(MST[maxEdge->src].begin(), MST[maxEdge->src].end(), [&](const auto el) {
+            return el.first == maxEdge->dest;
+        }));
+        MST[maxEdge->dest].erase(std::find_if(MST[maxEdge->dest].begin(), MST[maxEdge->dest].end(), [&](const auto el) {
+            return el.first == maxEdge->src;
+        }));
+
+        // Add new edge
+        MST[e.src].push_back({e.dest, e.weight});
+        MST[e.dest].push_back({e.src, e.weight});
+
+        // Update mstWeight
+        mstWeight -= maxEdge->weight - e.weight;
     }
 
     return {mstWeight, duration(clock::now() - start).count()};
@@ -92,21 +139,29 @@ perfData Graph<alg>::recomputeMST(Edge e) {
  */
 template<Algorithm alg>
 perfData Graph<alg>::kruskalMST() {
-    std::vector<Edge> inserted(numEdges);
-    std::unordered_set<unsigned> added;
-    added.reserve(numVertices);
-
     auto start = clock::now();
 
+    std::vector<std::unordered_set<unsigned> > forest(numVertices);
+    for (unsigned i = 0; i < numVertices; ++i) forest[i].insert(i);
+    auto find_set = [&forest](unsigned i) {
+        return std::find_if(forest.begin(), forest.end(), [&](const std::unordered_set<unsigned> &s) {
+            return s.find(i) != s.end();
+        });
+    };
+
+    // MST edges
     while (!edgeHeap.empty()) {
         // Get the edge with min weight
         Edge e = edgeHeap.front();
 
         // If both vertices connected by this edge is already in the MST, discard
-        if (added.find(e.src) == added.end() || added.find(e.dest) == added.end()) {
-            added.insert(e.src);
-            added.insert(e.dest);
-            inserted.push_back(e);
+        auto u = find_set(e.src);
+        auto v = find_set(e.dest);
+        if (u != v) {
+            MST[e.src].push_back({e.dest, e.weight});
+            MST[e.dest].push_back({e.src, e.weight});
+            u->merge(*v);
+            forest.erase(v);
         }
 
         // Pop the edge from heap
@@ -116,13 +171,10 @@ perfData Graph<alg>::kruskalMST() {
         edgeHeap.pop_back();
     }
 
-    // Construct hashmap from inserted edges
-    for (auto &e: inserted) {
-        if (MST.find(e.src) == MST.end())
-            MST[e.src] = {e.dest, e.weight};
-        else
-            MST[e.dest] = {e.src, e.weight};
-    }
+    for (auto &e: MST)
+        for (auto &d: e)
+            mstWeight += d.second;
+    mstWeight /= 2;
 
     return {mstWeight, duration(clock::now() - start).count()};
 }
@@ -136,5 +188,8 @@ perfData Graph<alg>::kruskalMST() {
  */
 template<Algorithm alg>
 perfData Graph<alg>::primsMST() {
-    throw std::logic_error("Not yet implemented");
+    auto start = clock::now();
+
+
+    return {mstWeight, duration(clock::now() - start).count()};
 }

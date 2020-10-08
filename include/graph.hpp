@@ -11,6 +11,7 @@
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
+#include <set>
 
 
 struct perfData {
@@ -38,20 +39,21 @@ private:
     int mstWeight{};
     std::vector<Edge> edgeList;
     std::vector<Edge> edgeHeap;
-    std::unordered_map<unsigned, std::pair<unsigned, int> > MST;
+    std::vector<std::vector<std::pair<unsigned, int> > > MST;
 
     // Prim
 
     // Functions
     perfData kruskalMST();
     perfData primsMST();
+    auto findPath(unsigned u, unsigned v);
 public:
     Graph() = default;
     explicit Graph(std::string &filename);
     explicit Graph(const char *filename);
 
     perfData computeMST();
-    perfData recomputeMST(Edge e);
+    perfData recomputeMST(const Edge &e);
 };
 
 #include "graph.cpp"
