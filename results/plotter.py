@@ -27,8 +27,9 @@ def plot_results():
     print('-' * 30, '\nExperiments:\n')
     with tqdm(total=len(files), desc="Running " + args.exec_name) as pbar:
         for f in files:
-            ret = subprocess.run([args.exec_name, f, os.path.splitext(f)[0],
-                                  "results/" + os.path.splitext(os.path.basename(f))[0] + ".out"]).returncode
+            pbar.set_description("Running " + os.path.splitext(os.path.basename(f))[0])
+            ret = subprocess.check_output([args.exec_name, f, os.path.splitext(f)[0] + '.extra',
+                                           "results/" + os.path.splitext(os.path.basename(f))[0] + ".out"])
             pbar.update(1)
     for f in ["results/" + os.path.splitext(os.path.basename(x))[0] + ".out" for x in files]:
         with open(f) as ff:
