@@ -2,6 +2,7 @@
 # -------------------------------------------------------------
 
 file(GLOB test_files "test_*.cpp")
+file(GLOB data_files "../data/rmat0[456]*.gr")
 
 foreach(test_src ${test_files})
     get_filename_component(exe ${test_src} NAME_WE)
@@ -9,11 +10,14 @@ foreach(test_src ${test_files})
     target_include_directories(${exe} PUBLIC
             "${CMAKE_SOURCE_DIR}/include"
             "${CMAKE_SOURCE_DIR}/src")
-
-    add_test(NAME ${exe} COMMAND
-            ${CTEST_BINARY_DIRECTORY}/${exe}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-    set_tests_properties(${exe}
-            PROPERTIES
-            TIMEOUT 100)
+    foreach(data_file ${data_files})
+        get_filename_component(df ${data_file} NAME_WE)
+        add_test(NAME ${exe}-${df} COMMAND
+                ${CTEST_BINARY_DIRECTORY}/${exe} ../data/${df}.gr ../data/${df}.extra results/${df}.out
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+        set_tests_properties(${exe}-${df}
+                PROPERTIES
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                TIMEOUT 100)
+    endforeach()
 endforeach()
