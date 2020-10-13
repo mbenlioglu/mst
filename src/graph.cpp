@@ -15,24 +15,31 @@ Graph<alg>::Graph(std::string &filename) {
     std::ifstream gfile(filename);
     if (gfile.fail()) throw std::runtime_error("Cannot open file: " + filename);
     gfile >> numVertices >> numEdges;
-    edgeList.reserve(numEdges);
-    for (unsigned i = 0; i < numEdges; ++i) {
-        Edge e{};
-        gfile >> e.src >> e.dest >> e.weight;
-        edgeList.push_back(e);
-    }
 
 
+    MST.resize(numVertices);
     if constexpr (alg == KRUSKAL) {
+        edgeList.reserve(numEdges);
+        for (unsigned i = 0; i < numEdges; ++i) {
+            Edge e{};
+            gfile >> e.src >> e.dest >> e.weight;
+            edgeList.push_back(e);
+        }
         edgeHeap.reserve(edgeList.size());
         edgeHeap.assign(edgeList.begin(), edgeList.end());
         // Min heap based on edge weights
         std::make_heap(edgeHeap.begin(), edgeHeap.end(), [](const Edge left, const Edge right) {
             return left.weight > right.weight;
         });
-        MST.resize(numVertices);
     } else {
-
+        adjList.reserve(numVertices);
+        for (unsigned i = 0; i < numEdges; ++i) {
+            Edge e{};
+            gfile >> e.src >> e.dest >> e.weight;
+            adjList[e.src].push_back(e);
+            adjList[e.dest].push_back({e.dest, e.src, e.weight});
+        }
+        adjHeap.reserve(numEdges);
     }
 }
 
@@ -63,24 +70,23 @@ perfData Graph<alg>::computeMST() {
  */
 template<Algorithm alg>
 auto Graph<alg>::findPath(unsigned u, unsigned v) {
-    std::unordered_set<unsigned> visited;
+    std::vector<bool> visited(numVertices);
     std::queue<std::pair<unsigned, unsigned> > q;
-    std::unordered_map<unsigned, std::vector<Edge> > paths;
+    std::vector<std::vector<Edge> > paths(numVertices);
 
     // Push source vertex to search queue
     q.push({u, std::numeric_limits<unsigned>::max()});
-    paths[u] = {};
     while (!q.empty()) {
         // Get first element from queue
-        auto [parent, src] = q.front();
+        auto [parent, dest] = q.front();
         q.pop();
 
         // mark as visited
-        visited.insert(parent);
+        visited[parent] = true;
 
         // Add neighbors of children to queue
         for (auto &child: MST[parent]){
-            if (visited.find(child.first) == visited.end()) {
+            if (!visited[child.first]) {
                 q.push({child.first, parent});
 
                 // Update paths
@@ -160,6 +166,7 @@ perfData Graph<alg>::kruskalMST() {
         if (u != v) {
             MST[e.src].push_back({e.dest, e.weight});
             MST[e.dest].push_back({e.src, e.weight});
+            mstWeight += e.weight;
             u->merge(*v);
             forest.erase(v);
         }
@@ -170,11 +177,6 @@ perfData Graph<alg>::kruskalMST() {
         });
         edgeHeap.pop_back();
     }
-
-    for (auto &e: MST)
-        for (auto &d: e)
-            mstWeight += d.second;
-    mstWeight /= 2;
 
     return {mstWeight, duration(clock::now() - start).count()};
 }
@@ -189,7 +191,33 @@ perfData Graph<alg>::kruskalMST() {
 template<Algorithm alg>
 perfData Graph<alg>::primsMST() {
     auto start = clock::now();
+    std::vector<bool> visited(numVertices);
 
+    visited[0] = true;
+    adjHeap.assign(adjList[0].begin(), adjList[0].end());
+    std::make_heap(adjHeap.begin(), adjHeap.end(), [](const Edge left, const Edge right) {
+       return left.weight > right.weight;
+    });
+
+    while (!adjHeap.empty() || visited.size() != numVertices) {
+        std::pop_heap(adjHeap.begin(), adjHeap.end(), [](const Edge left, const Edge right) {
+            return left.weight > right.weight;
+        });
+        Edge e = adjHeap.back();
+        adjHeap.pop_back();
+        if (!visited[e.dest] || !visited[e.src]) {
+            visited[e.dest] = visited[e.src] = true;
+            MST[e.src].push_back({e.dest, e.weight});
+            MST[e.dest].push_back({e.src, e.weight});
+            mstWeight += e.weight;
+            for (auto &ed: adjList[e.dest]) {
+                adjHeap.push_back(ed);
+                std::push_heap(adjHeap.begin(), adjHeap.end(), [](const Edge left, const Edge right) {
+                    return left.weight > right.weight;
+                });
+            }
+        }
+    }
 
     return {mstWeight, duration(clock::now() - start).count()};
 }

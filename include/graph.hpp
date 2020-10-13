@@ -28,6 +28,8 @@ struct Edge {
     int weight;
 };
 
+static const auto alg_list = {KRUSKAL, PRIM};
+
 template<Algorithm alg = KRUSKAL>
 class Graph {
 private:
@@ -42,6 +44,8 @@ private:
     std::vector<std::vector<std::pair<unsigned, int> > > MST;
 
     // Prim
+    std::vector<std::vector<Edge> > adjList;
+    std::vector<Edge> adjHeap;
 
     // Functions
     perfData kruskalMST();
