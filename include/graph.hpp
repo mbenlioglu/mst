@@ -51,6 +51,7 @@ private:
     perfData kruskalMST();
     perfData primsMST();
     auto findPath(unsigned u, unsigned v);
+
 public:
     Graph() = default;
     explicit Graph(std::string &filename);
