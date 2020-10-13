@@ -59,10 +59,8 @@ cd build
 ctest -j
 ```
  
-**Important:** due to time limitations `Makefile` is not as comprehensive as the
-CMake version. Especially testing is not fully supported if your machine does not
-have CMake installed. It's highly recommended that you have CMake on your machine
-before running above commands.
+**Important:**  `Makefile` may not as comprehensive as the CMake version. It's
+highly recommended that you have CMake on your machine before running above commands.
 
 ### Plotting Results
 
@@ -80,9 +78,9 @@ python3 results/plotter.py
 
 Both Kruskal's and Prim's version is implemented. Although, without using Fibonacci heap,
 both have the same complexity of `O(E*log(V))`, Kruskal's run slower in practice due to
-increased number of complex data structures, this could be improved further, however,
-current implementation doesn't go into details of optimization. If Fibonacci heap is
-used with Prim's algorithm it's complexity becomes `O(E+V*log(V))`
+a rather inefficient implementation of finding sets within forest, this could be improved
+further, however, current implementation doesn't go into details of optimization. If
+Fibonacci heap is used with Prim's algorithm it's complexity becomes `O(E+V*log(V))`
 
 **Re-compute MST:**
 
