@@ -93,6 +93,6 @@ edge with this edge otherwise our MST is already optimal and we make no changes.
 Finding the unique path and the maximum of that path takes `O(V)` time, which is
 the cost of this operation.
 
-![Static MST as the Number of Edges increase](/results/plots.pdf)
+![Static MST as the Number of Edges increase](/results/plots.png)
 
 The results in the graphs seems they match the expected results, both dynamic and static
