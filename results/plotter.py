@@ -9,7 +9,7 @@ import subprocess
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-files = glob.glob('data/*.gr')
+files = sorted(glob.glob('data/*.gr'))
 st_data = []
 ch_data = []
 num_edges = []
@@ -33,21 +33,27 @@ def plot_results():
             pbar.update(1)
     for f in ["results/" + os.path.splitext(os.path.basename(x))[0] + ".out" for x in files]:
         with open(f) as ff:
-            st_data.append(float(x.strip().split()[-1]) for x in ff.readline())
+            st_data.append(float(ff.readline().strip().split()[-1]))
         with open(f) as ff:
-            ch_data.append([float(x.strip().split()[-1]) for x in ff.readlines()[1:]])
+            sm, cnt = 0.0, 0
+            for x in ff.readlines()[1:]:
+                sm += float(x.strip().split()[-1])
+                cnt += 1
+            ch_data.append(sm / cnt)
     for f in files:
         with open(f) as ff:
             num_edges.append(int(ff.readline().strip().split()[-1]))
 
     fig, axs = plt.subplots(2, 1)
+    print(st_data)
     axs[0].plot(num_edges, st_data)
-    axs[0].set(xlabel='# of Edges', ylabel='Elapsed Time(s)')
+    axs[0].set(xlabel='# of Edges', ylabel='Elapsed Time(ms)')
     axs[0].set_title('Static MST Calculation')
 
     axs[1].plot(num_edges, ch_data)
-    axs[1].set(xlabel='# of Edges', ylabel='Elapsed Time(s)')
-    axs[1].set_title('1000 Edge Addition')
+    axs[1].set(xlabel='# of Edges', ylabel='Elapsed Time(ms)')
+    axs[1].set_title('Average time for Edge Addition')
+    fig.suptitle('MST computation times with increasing edge number', fontsize=16)
     plt.tight_layout()
     plt.savefig('results/plots.pdf')
 
@@ -55,7 +61,6 @@ def plot_results():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-t', '--make-target', default=None, type=str)
-    parser.add_argument('-r', '--repeat', default=3, type=int)
     parser.add_argument('-e', '--exec-name', default="./mst", type=str)
     args = parser.parse_args()
 
