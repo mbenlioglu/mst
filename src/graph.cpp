@@ -198,17 +198,23 @@ perfData Graph<alg>::primsMST() {
         return left.weight > right.weight;
     });
 
+    // Add edges until we run out of edges or the tree becomes spanning
     while (!adjHeap.empty() || visited.size() != numVertices) {
+        // Get the edge with least weight from the heap
         std::pop_heap(adjHeap.begin(), adjHeap.end(), [](const Edge left, const Edge right) {
             return left.weight > right.weight;
         });
         Edge e = adjHeap.back();
         adjHeap.pop_back();
+
+        // Add to the tree if it doesn't form a cycle
         if (!visited[e.dest] || !visited[e.src]) {
             visited[e.dest] = visited[e.src] = true;
             MST[e.src].push_back({e.dest, e.weight});
             MST[e.dest].push_back({e.src, e.weight});
             mstWeight += e.weight;
+
+            // Add new edges connecting to the tree into a heap
             for (auto &ed: adjList[e.dest]) {
                 adjHeap.push_back(ed);
                 std::push_heap(adjHeap.begin(), adjHeap.end(), [](const Edge left, const Edge right) {
