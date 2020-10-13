@@ -95,7 +95,6 @@ auto Graph<alg>::findPath(unsigned u, unsigned v) {
             }
         }
     }
-    paths[v].erase(paths[v].begin());
     return std::move(paths[v]);
 }
 
@@ -114,7 +113,7 @@ perfData Graph<alg>::recomputeMST(const Edge &e) {
 
     // If the max edge along the path is greater than the new edge, replace.
     auto maxEdge = std::max_element(path.begin(), path.end(), [](const Edge left, const Edge right) {
-        return left.weight > right.weight;
+        return left.weight < right.weight;
     });
     if (maxEdge->weight > e.weight) {
         // Remove maxEdge from MST
