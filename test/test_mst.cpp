@@ -86,6 +86,10 @@ int main(int argc, char *argv[]) {
 
     try {
         ret |= test<PRIM>(reinterpret_cast<std::string &>(argv[1]), changes, results);
+
+        // Reset caret position
+        changes.seekg(0);
+        results.seekg(0);
         ret |= test<KRUSKAL>(reinterpret_cast<std::string &>(argv[1]), changes, results);
     } catch (std::runtime_error &e) {
         std::cerr << e.what() << std::endl;
