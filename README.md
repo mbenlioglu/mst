@@ -78,11 +78,11 @@ python3 results/plotter.py
 
 ## Algorithm and Discussion
 
-As of Oct 4. Kruskal's algorithm has been implemented. Without using Fibonacci heap,
-both have the same complexity of `O(E*log(V))`. However if Fibonacci heap is used with
-Prim's algorithm it's complexity becomes `O(E+V*log(V))` The reason that I implemented
-Kruskal first is that it seemed easier to implement from my initial intuition. Then I
-stick with that decision.
+Both Kruskal's and Prim's version is implemented. Although, without using Fibonacci heap,
+both have the same complexity of `O(E*log(V))`, Kruskal's run slower in practice due to
+increased number of complex data structures, this could be improved further, however,
+current implementation doesn't go into details of optimization. If Fibonacci heap is
+used with Prim's algorithm it's complexity becomes `O(E+V*log(V))`
 
 **Re-compute MST:**
 
