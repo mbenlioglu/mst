@@ -45,17 +45,16 @@ def plot_results():
             num_edges.append(int(ff.readline().strip().split()[-1]))
 
     fig, axs = plt.subplots(2, 1)
-    print(st_data)
     axs[0].plot(num_edges, st_data)
-    axs[0].set(xlabel='# of Edges', ylabel='Elapsed Time(ms)')
+    axs[0].set(xlabel='# of Edges', ylabel='Elapsed Time(s)')
     axs[0].set_title('Static MST Calculation')
 
     axs[1].plot(num_edges, ch_data)
-    axs[1].set(xlabel='# of Edges', ylabel='Elapsed Time(ms)')
+    axs[1].set(xlabel='# of Edges', ylabel='Elapsed Time(s)')
     axs[1].set_title('Average time for Edge Addition')
     fig.suptitle('MST computation times with increasing edge number', fontsize=16)
     plt.tight_layout()
-    plt.savefig('results/plots.pdf')
+    plt.savefig('results/plots.png')
 
 
 if __name__ == '__main__':
