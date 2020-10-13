@@ -13,7 +13,7 @@ foreach(test_src ${test_files})
     foreach(data_file ${data_files})
         get_filename_component(df ${data_file} NAME_WE)
         add_test(NAME ${exe}-${df} COMMAND
-                ${CTEST_BINARY_DIRECTORY}/${exe} ../data/${df}.gr ../data/${df}.extra results/${df}.out
+                ${CMAKE_CURRENT_BINARY_DIR}/${exe} ../data/${df}.gr ../data/${df}.extra results/${df}.out
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
         set_tests_properties(${exe}-${df}
                 PROPERTIES
