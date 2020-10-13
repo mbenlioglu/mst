@@ -9,8 +9,12 @@
 #include "graph.hpp"
 
 
-void print_usage(std::string &basename) {
-    std::cout << "Usage:\n" << basename << " [GRAPH_FILE] [CHANGE_FILE] [OUTPUT_FILE]" << std::endl;
+inline void print_usage(std::string &basename) {
+    std::cout << "Usage:\n" << basename << " GRAPH_FILE CHANGE_FILE OUTPUT_FILE\n"
+              << "\n\t GRAPH_FILE \t Path to graph file (edge list format)"
+                 "\n\t CHANGE_FILE\t Path to file containing additional edges"
+                 "\n\t OUPUT_FILE \t Path to output results of computation"
+              << std::endl;
 }
 
 int main(int argc, char *argv[]) {
@@ -27,7 +31,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Create graph object from file
-    auto graph = Graph<KRUSKAL>(argv[1]);
+    auto graph = Graph<PRIM>(argv[1]);
 
 
     // Results storage
