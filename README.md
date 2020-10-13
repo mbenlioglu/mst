@@ -69,7 +69,6 @@ the following commands from project root will install prerequisites and regenera
 the plots under `results` directory
 
 ```shell script
-cd results
 pip install -r requirements.txt
 python3 results/plotter.py
 ```
