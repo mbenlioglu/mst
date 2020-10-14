@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
 
     unsigned change_cnt;
     changes >> change_cnt;
+    perfResults.reserve(change_cnt + 1);
 
     for (unsigned i = 0; i < change_cnt; ++i) {
         Edge e{};

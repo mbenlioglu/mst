@@ -5,6 +5,10 @@
 #include "graph.hpp"
 #include "test_utils.hpp"
 
+#ifndef ALG
+    #define ALG PRIM
+#endif
+
 template<Algorithm alg>
 unsigned test_recompute_mst(Graph<alg> &g, std::ifstream &changes_file, std::ifstream &res_file) {
     unsigned changes_cnt;
@@ -44,23 +48,6 @@ unsigned test_mst(Graph<alg> &g, std::ifstream &res_file) {
     return EXIT_SUCCESS;
 }
 
-template<Algorithm alg>
-unsigned test(std::string &gfile, std::ifstream &changes_file, std::ifstream &res_file) {
-    unsigned ret = EXIT_SUCCESS;
-
-    // Create graph object from file
-    auto graph = Graph<alg>(gfile);
-
-    RUN_TEST_ARGS(test_mst, graph, res_file);
-    RUN_TEST_ARGS(test_recompute_mst, graph, changes_file, res_file);
-
-    // Reset caret position
-    changes_file.seekg(0);
-    res_file.seekg(0);
-
-    return ret;
-}
-
 int main(int argc, char *argv[]) {
     unsigned ret = EXIT_SUCCESS;
 
@@ -89,8 +76,12 @@ int main(int argc, char *argv[]) {
     }
 
     try {
-        ret |= test<PRIM>(reinterpret_cast<std::string &>(argv[1]), changes, results);
-        ret |= test<KRUSKAL>(reinterpret_cast<std::string &>(argv[1]), changes, results);
+
+        // Create graph object from file
+        auto graph = Graph<ALG>(argv[1]);
+
+        RUN_TEST_ARGS(test_mst, graph, results);
+        RUN_TEST_ARGS(test_recompute_mst, graph, changes, results);
     } catch (std::runtime_error &e) {
         std::cerr << e.what() << std::endl;
         ret = EXIT_FAILURE;
