@@ -6,8 +6,14 @@
 #include "test_utils.hpp"
 
 #ifndef ALG
-    #define ALG PRIM
-#endif
+
+int main (int argc, char *argv[]) {
+    std::cerr << "Missing compilation definition! Define ALG=KRUSKAL or ALG=PRIM to determine which\n"
+                 "one you want to test." << std::endl;
+    return EXIT_FAILURE;
+}
+
+#else
 
 template<Algorithm alg>
 unsigned test_recompute_mst(Graph<alg> &g, std::ifstream &changes_file, std::ifstream &res_file) {
@@ -92,3 +98,5 @@ int main(int argc, char *argv[]) {
     results.close();
     return static_cast<int>(ret);
 }
+
+#endif /* ALG */
