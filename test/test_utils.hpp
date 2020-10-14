@@ -39,7 +39,7 @@ inline void print_usage(std::string &basename) {
 
 #define RUN_TEST(fn)                                    \
     do {                                                \
-        int ret_ = fn();                                \
+        unsigned ret_ = fn();                           \
         if (ret_ != 0) {                                \
             fprintf(stderr, "TEST FAILED: %s\n", #fn);  \
         } else {                                        \
@@ -50,7 +50,7 @@ inline void print_usage(std::string &basename) {
 
 #define RUN_TEST_ARGS(fn, ...)                          \
     do {                                                \
-        int ret_ = fn(__VA_ARGS__);                     \
+        unsigned ret_ = fn(__VA_ARGS__);                \
         if (ret_ != 0) {                                \
             fprintf(stderr, "TEST FAILED: %s\n", #fn);  \
         } else {                                        \

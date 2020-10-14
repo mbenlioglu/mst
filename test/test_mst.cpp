@@ -6,7 +6,7 @@
 #include "test_utils.hpp"
 
 template<Algorithm alg>
-unsigned test_recompute_mst(Graph<alg> &g, std::ifstream &changes_file, std::ifstream &res_file){
+unsigned test_recompute_mst(Graph<alg> &g, std::ifstream &changes_file, std::ifstream &res_file) {
     unsigned changes_cnt;
     changes_file >> changes_cnt;
 
@@ -46,13 +46,17 @@ unsigned test_mst(Graph<alg> &g, std::ifstream &res_file) {
 
 template<Algorithm alg>
 unsigned test(std::string &gfile, std::ifstream &changes_file, std::ifstream &res_file) {
-    int ret = EXIT_SUCCESS;
+    unsigned ret = EXIT_SUCCESS;
 
     // Create graph object from file
     auto graph = Graph<alg>(gfile);
 
     RUN_TEST_ARGS(test_mst, graph, res_file);
     RUN_TEST_ARGS(test_recompute_mst, graph, changes_file, res_file);
+
+    // Reset caret position
+    changes_file.seekg(0);
+    res_file.seekg(0);
 
     return ret;
 }
@@ -86,10 +90,6 @@ int main(int argc, char *argv[]) {
 
     try {
         ret |= test<PRIM>(reinterpret_cast<std::string &>(argv[1]), changes, results);
-
-        // Reset caret position
-        changes.seekg(0);
-        results.seekg(0);
         ret |= test<KRUSKAL>(reinterpret_cast<std::string &>(argv[1]), changes, results);
     } catch (std::runtime_error &e) {
         std::cerr << e.what() << std::endl;
