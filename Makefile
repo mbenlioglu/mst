@@ -38,7 +38,7 @@ mst: $(SRC_OBJ)
 	@g++ $(CXX_FLAGS) $^ -o $@ $(LD_FLAGS)
 
 mst.cmake: $(TEST_SOURCES) $(SOURCES) CMakeLists.txt
-	@mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make -j && cp $* .. && cd ..; touch mst.cmake
+	@mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make -j && cd .. && ln -fs build/$* .; touch mst.cmake
 
 _test: $(TESTS) mst
 	@for f in $(patsubst %.out,%,$(shell ls test/results)); do echo Test $(basename $<)-$$f\:; $< data/$$f.gr data/$$f.extra test/results/$$f.out && echo Passed || echo Failed; done
