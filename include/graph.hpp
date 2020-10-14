@@ -28,8 +28,6 @@ struct Edge {
     int weight;
 };
 
-static const auto alg_list = {KRUSKAL, PRIM};
-
 template<Algorithm alg = KRUSKAL>
 class Graph {
 private:
