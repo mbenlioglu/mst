@@ -3,6 +3,7 @@
 """
 import argparse
 import glob
+import multiprocessing as mp
 import os
 import subprocess
 
@@ -13,6 +14,11 @@ files = sorted(glob.glob('data/*.gr'))
 st_data = []
 ch_data = []
 num_edges = []
+
+
+def work_load(_file):
+    ret = subprocess.check_output([args.exec_name, _file, os.path.splitext(_file)[0] + '.extra',
+                                   "results/" + os.path.splitext(os.path.basename(_file))[0] + ".out"])
 
 
 def compile_prog():
@@ -26,11 +32,9 @@ def compile_prog():
 def plot_results():
     print('-' * 30, '\nExperiments:\n')
     with tqdm(total=len(files), desc="Running " + args.exec_name) as pbar:
-        for f in files:
-            pbar.set_description("Running " + os.path.splitext(os.path.basename(f))[0])
-            ret = subprocess.check_output([args.exec_name, f, os.path.splitext(f)[0] + '.extra',
-                                           "results/" + os.path.splitext(os.path.basename(f))[0] + ".out"])
-            pbar.update(1)
+        with mp.Pool() as p:
+            for _ in p.imap_unordered(work_load, (f for f in files)):
+                pbar.update()
     for f in ["results/" + os.path.splitext(os.path.basename(x))[0] + ".out" for x in files]:
         with open(f) as ff:
             st_data.append(float(ff.readline().strip().split()[-1]))
@@ -58,6 +62,7 @@ def plot_results():
 
 
 if __name__ == '__main__':
+    mp.freeze_support()
     parser = argparse.ArgumentParser()
     parser.add_argument('-t', '--make-target', default=None, type=str)
     parser.add_argument('-e', '--exec-name', default="./mst", type=str)
