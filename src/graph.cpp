@@ -78,14 +78,14 @@ auto Graph<alg>::findPath(unsigned u, unsigned v) {
     q.push({u, std::numeric_limits<unsigned>::max()});
     while (!q.empty()) {
         // Get first element from queue
-        auto [parent, dest] = q.front();
+        auto[parent, dest] = q.front();
         q.pop();
 
         // mark as visited
         visited[parent] = true;
 
         // Add neighbors of children to queue
-        for (auto &child: MST[parent]){
+        for (auto &child: MST[parent]) {
             if (!visited[child.first]) {
                 q.push({child.first, parent});
 
@@ -195,7 +195,7 @@ perfData Graph<alg>::primsMST() {
     visited[0] = true;
     adjHeap.assign(adjList[0].begin(), adjList[0].end());
     std::make_heap(adjHeap.begin(), adjHeap.end(), [](const Edge left, const Edge right) {
-       return left.weight > right.weight;
+        return left.weight > right.weight;
     });
 
     while (!adjHeap.empty() || visited.size() != numVertices) {

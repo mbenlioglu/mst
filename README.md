@@ -66,7 +66,8 @@ highly recommended that you have CMake on your machine before running above comm
 
 A python script is provided to regenerate the plots and from scratch. Running
 the following commands from project root will install prerequisites and regenerate
-the plots under `results` directory
+the plots under `results` directory by running the executable with all the datasets
+available under `data` directory.
 
 ```shell script
 pip install -r requirements.txt
