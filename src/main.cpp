@@ -10,10 +10,10 @@
 
 
 inline void print_usage(std::string &basename) {
-    std::cout << "Usage:\n" << basename << " GRAPH_FILE CHANGE_FILE OUTPUT_FILE\n"
-              << "\n\t GRAPH_FILE \t Path to graph file (edge list format)"
-                 "\n\t CHANGE_FILE\t Path to file containing additional edges"
-                 "\n\t OUTPUT_FILE\t Path to output results of computation"
+    std::cout << "Usage:\n\n" << basename << " GRAPH_FILE CHANGE_FILE OUTPUT_FILE\n"
+              << "\n\tGRAPH_FILE \t Path to graph file (edge list format)"
+                 "\n\tCHANGE_FILE\t Path to file containing additional edges"
+                 "\n\tOUTPUT_FILE\t Path to output results of computation"
               << std::endl;
 }
 
@@ -26,6 +26,7 @@ int main(int argc, char *argv[]) {
     #endif
 
     if (argc < 4) {
+        std::cout << "Not enough arguments!" << std::endl;
         print_usage(basename);
         return EXIT_FAILURE;
     }
