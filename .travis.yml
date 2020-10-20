@@ -31,7 +31,8 @@ jobs:
         - make test
         - ./mst ../data/rmat0406.gr ../data/rmat0406.extra /dev/null
         - ./mst ../data/rmat0406.gr not-exists /dev/null 2>&1 | grep "Cannot open file" || false
-        - ./mst ../data/rmat0406.gr ../data/rmat0406.extra not-exists 2>&1 | grep "Cannot open file" || false
+        - touch restricted-file && chmod 400 restricted-file
+        - ./mst ../data/rmat0406.gr ../data/rmat0406.extra restricted-file 2>&1 | grep "Cannot open file" || false
         - ./mst 2>&1 | grep Usage || false
         - ./test/test_mst-PRIM 2>&1 | grep Usage || false
         - ./test/test_mst-PRIM ../data/rmat0406.gr not-exists ../test/results/rmat0406.out 2>&1 | grep "Cannot open file" || false
