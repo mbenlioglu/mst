@@ -1,5 +1,8 @@
 # Minimum Spanning Tree
 
+[![Build Status](https://travis-ci.com/mbenlioglu/mst.svg?token=GepvFUTzF5dbieTxPqKq&branch=master)](https://travis-ci.com/mbenlioglu/mst)
+[![codecov](https://codecov.io/gh/mbenlioglu/mst/branch/master/graph/badge.svg?token=FD81QM2DEJ)](https://codecov.io/gh/mbenlioglu/mst?branch=master)
+
 Minimum spanning tree calculation and dynamic re-calculation by using Kruskal's and
 Prim's algorithms
 

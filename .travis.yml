@@ -1,0 +1,36 @@
+language: cpp
+
+addons:
+  apt:
+    packages:
+      - g++-9
+      - cmake
+      - cmake-data
+
+jobs:
+  include:
+    # Unit Tests
+    - stage: "Test"
+      name: "Unit Tests"
+      os: linux
+      dist: focal
+      script:
+        - mkdir ${TRAVIS_BUILD_DIR}/build && cd ${TRAVIS_BUILD_DIR}/build
+        - cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" ..
+        - make
+        - make test
+    # Coverage Tests
+    - stage: "Coverage"
+      name: "Coverage Test"
+      os: linux
+      dist: focal
+      script:
+        - mkdir ${TRAVIS_BUILD_DIR}/build && cd ${TRAVIS_BUILD_DIR}/build
+        - cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" -DCMAKE_CXX_FLAGS=--coverage ..
+        - make
+        - make test
+        - ./mst ../data/rmat0406.gr ../data/rmat0406.extra /dev/null
+        - ./mst ../data/rmat0406.gr not-exists /dev/null || true
+        - ./mst || true
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
