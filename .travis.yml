@@ -30,7 +30,12 @@ jobs:
         - make
         - make test
         - ./mst ../data/rmat0406.gr ../data/rmat0406.extra /dev/null
-        - ./mst ../data/rmat0406.gr not-exists /dev/null || true
-        - ./mst || true
+        - ./mst ../data/rmat0406.gr not-exists /dev/null 2>&1 | grep "Cannot open file" || false
+        - ./mst ../data/rmat0406.gr ../data/rmat0406.extra not-exists 2>&1 | grep "Cannot open file" || false
+        - ./mst 2>&1 | grep Usage || false
+        - ./test/test_mst 2>&1 | grep Usage || false
+        - ./test/test_mst ../data/rmat0406.gr not-exists ../test/results/rmat0406.out 2>&1 | grep "Cannot open file" || false
+        - ./test/test_mst ../data/rmat0406.gr ../data/rmat0406.extra not-exists 2>&1 | grep "Cannot open file" || false
+        - ./test/test_mst not-exist ../data/rmat0406.extra ../test/results/rmat0406.out 2>&1 | grep "Cannot open file" || false
       after_success:
         - bash <(curl -s https://codecov.io/bash)
