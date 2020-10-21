@@ -26,11 +26,6 @@ if (Doxygen_FOUND AND Sphinx_FOUND)
     set(SPHINX_CUSTOM_SIDE ${SPHINX_BUILD}/_static/css/side_color.css)
     set(SPHINX_PLOT ${SPHINX_BUILD}/results/_plots.png)
 
-    add_custom_command(OUTPUT ${SPHINX_PLOT}
-            COMMAND
-            mkdir -p results && ln -fs ${CMAKE_SOURCE_DIR}/results/_plots.png results
-            WORKING_DIRECTORY ${SPHINX_BUILD})
-
     add_custom_command(OUTPUT ${SPHINX_INDEX_FILE}
             COMMAND
             ${SPHINX_EXECUTABLE} -b html -Dbreathe_projects.MST=${DOXYGEN_OUTPUT_DIR}/xml
@@ -39,7 +34,6 @@ if (Doxygen_FOUND AND Sphinx_FOUND)
             DEPENDS
             ${CMAKE_CURRENT_SOURCE_DIR}/index.rst
             ${DOXYGEN_INDEX_FILE}
-            ${SPHINX_PLOT}
             MAIN_DEPENDENCY ${SPHINX_SOURCE}/conf.py
             COMMENT "Generating documentation with Sphinx")
 
@@ -51,8 +45,14 @@ if (Doxygen_FOUND AND Sphinx_FOUND)
             ${SPHINX_INDEX_FILE}
             VERBATIM)
 
+    add_custom_command(OUTPUT ${SPHINX_PLOT}
+            COMMAND
+            mkdir -p results && ln -fs ${CMAKE_SOURCE_DIR}/results/_plots.png results
+            DEPENDS ${SPHINX_INDEX_FILE}
+            WORKING_DIRECTORY ${SPHINX_BUILD})
+
     if (NOT TARGET docs)
-        add_custom_target(docs DEPENDS ${DOXYGEN_INDEX_FILE} ${SPHINX_INDEX_FILE} ${SPHINX_CUSTOM_SIDE})
+        add_custom_target(docs DEPENDS ${DOXYGEN_INDEX_FILE} ${SPHINX_INDEX_FILE} ${SPHINX_CUSTOM_SIDE} ${SPHINX_PLOT})
     endif ()
 
     # Install if docs are built
