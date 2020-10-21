@@ -1,4 +1,4 @@
-/**
+/*
  *   Created by mbenlioglu on Oct 12, 2020.
  */
 
@@ -21,7 +21,7 @@ unsigned test_recompute_mst(Graph<alg> &g, std::ifstream &changes_file, std::ifs
     changes_file >> changes_cnt;
 
     for (unsigned i = 0; i < changes_cnt; ++i) {
-        Edge e{};
+        Graph<ALG>::Edge e{};
         changes_file >> e.src >> e.dest >> e.weight;
 
         // Calculate using the implementation

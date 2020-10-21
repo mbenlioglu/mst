@@ -1,4 +1,4 @@
-/**
+/*
  *   Created by mbenlioglu on Oct 03, 2020.
  */
 
@@ -12,23 +12,32 @@
 #include <unordered_set>
 #include <vector>
 
-
+/**
+ * Struct to hold performance metrics (Total MST weight and elapsed time to calculate)
+ */
 struct perfData {
     int mstWeight;
     double duration;
 };
 
+/**
+ * List of algorithms used in MST calculation
+ */
 enum Algorithm {
     KRUSKAL, PRIM
 };
 
-struct Edge {
-    unsigned src, dest;
-    int weight;
-};
-
 template<Algorithm alg = KRUSKAL>
 class Graph {
+public:
+    /**
+     * Struct to hold weighted directed edge information
+     */
+    struct Edge {
+        unsigned src, dest;
+        int weight;
+    };
+
 private:
     // Timing
     using clock = std::chrono::high_resolution_clock;

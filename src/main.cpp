@@ -1,4 +1,4 @@
-/**
+/*
  *   Created by mbenlioglu on Sep 24, 2020.
  */
 #include <iostream>
@@ -32,7 +32,8 @@ int main(int argc, char *argv[]) {
     }
 
     // Create graph object from file
-    auto graph = Graph<PRIM>(argv[1]);
+    using Graph = Graph<PRIM>;
+    auto graph = Graph(argv[1]);
 
 
     // Results storage
@@ -53,7 +54,7 @@ int main(int argc, char *argv[]) {
     perfResults.reserve(change_cnt + 1);
 
     for (unsigned i = 0; i < change_cnt; ++i) {
-        Edge e{};
+        Graph::Edge e{};
         changes >> e.src >> e.dest >> e.weight;
 
         perfResults.push_back(graph.recomputeMST(e));

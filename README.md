@@ -30,7 +30,7 @@ but it's untested)_
 
 There is a Makefile provided for the project. From the project source running running
 
-```shell script
+```shell
 make
 ```
 
@@ -41,7 +41,7 @@ should be able compile even when CMake is not present.
 
 Alternatively running the following commands will give the same results
 
-```shell script
+```shell
 mkdir build && cd build
 cmake ..
 make -j
@@ -52,12 +52,12 @@ make -j
 There are some unit tests included with this project. Running the following
 command from the root directory after the project is built will run them show
 their outputs.
-```shell script
+```shell
 make test
 ```
 
 Alternatively you can do the following and get the same result
-```shell script
+```shell
 cd build
 ctest -j
 ```
@@ -72,7 +72,7 @@ the following commands from project root will install prerequisites and regenera
 the plots under `results` directory by running the executable with all the datasets
 available under `data` directory.
 
-```shell script
+```shell
 pip install -r requirements.txt
 python3 results/plotter.py
 ```

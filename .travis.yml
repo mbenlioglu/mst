@@ -40,3 +40,30 @@ jobs:
         - ./test/test_mst-PRIM not-exist ../data/rmat0406.extra ../test/results/rmat0406.out 2>&1 | grep "Cannot open file" || false
       after_success:
         - bash <(curl -s https://codecov.io/bash)
+    # Deploy
+    - stage: "Deploy"
+      name: "Generate Docs"
+      branches:
+        only:
+          - master
+      os: linux
+      language: python
+      python: "3.8"
+      addons:
+        apt:
+          packages:
+            - doxygen
+            - graphviz
+      install:
+        - pip3 install -r docs/requirements.txt
+      script:
+        - mkdir ${TRAVIS_BUILD_DIR}/build && cd ${TRAVIS_BUILD_DIR}/build
+        - cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" ..
+        - make docs
+        - cd ${TRAVIS_BUILD_DIR}
+      deploy:
+        edge: true
+        provider: pages:git
+        local_dir: ./build/docs/sphinx
+        token: $GITHUB_TOKEN
+        verbose: true

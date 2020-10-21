@@ -1,4 +1,4 @@
-/**
+/*
  *   Created by mbenlioglu on Oct 03, 2020.
  */
 #pragma once
