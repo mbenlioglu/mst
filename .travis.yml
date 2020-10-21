@@ -47,6 +47,7 @@ jobs:
         only:
           - master
       os: linux
+      dist: focal
       language: python
       python: "3.8"
       addons:
