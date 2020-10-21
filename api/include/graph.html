@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Graph &mdash; MST 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/side_color.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="MST 1.0.0 documentation" href="../../index.html"/>
+        <link rel="next" title="Site Map" href="../../genindex.html"/>
+        <link rel="prev" title="Minimum Spanning Tree" href="../../README.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MST
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../LICENSE.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">Minimum Spanning Tree</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Graph</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Site Map</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MST</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Graph</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/mbenlioglu/mst/blob/master/docs/api/include/graph.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="graph">
+<h1>Graph<a class="headerlink" href="#graph" title="Permalink to this headline">¶</a></h1>
+<p>Defined in <a class="reference external" href="https://github.com/mbenlioglu/mst/blob/master/include/graph.hpp">include/graph.hpp</a></p>
+<dl class="cpp struct">
+<dt id="_CPPv48perfData">
+<span id="_CPPv38perfData"></span><span id="_CPPv28perfData"></span><span id="perfData"></span><span class="target" id="structperfData"></span><em class="property">struct </em><code class="sig-name descname">perfData</code><a class="headerlink" href="#_CPPv48perfData" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Struct to hold performance metrics (Total MST weight and elapsed time to calculate) </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N8perfData9mstWeightE">
+<span id="_CPPv3N8perfData9mstWeightE"></span><span id="_CPPv2N8perfData9mstWeightE"></span><span id="perfData::mstWeight__i"></span><span class="target" id="structperfData_1ae45f26636c142eca166fd51221a07cbc"></span>int <code class="sig-name descname">mstWeight</code><a class="headerlink" href="#_CPPv4N8perfData9mstWeightE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N8perfData8durationE">
+<span id="_CPPv3N8perfData8durationE"></span><span id="_CPPv2N8perfData8durationE"></span><span id="perfData::duration__double"></span><span class="target" id="structperfData_1a9b2078621a660ef48b2339f3b9ab1be9"></span>double <code class="sig-name descname">duration</code><a class="headerlink" href="#_CPPv4N8perfData8durationE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp enum">
+<dt id="_CPPv49Algorithm">
+<span id="_CPPv39Algorithm"></span><span id="_CPPv29Algorithm"></span><span class="target" id="graph_8hpp_1a5e41188f16a381c8915a17a22228e691"></span><em class="property">enum </em><code class="sig-name descname">Algorithm</code><a class="headerlink" href="#_CPPv49Algorithm" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>List of algorithms used in MST calculation </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N9Algorithm7KRUSKALE">
+<span id="_CPPv3N9Algorithm7KRUSKALE"></span><span id="_CPPv2N9Algorithm7KRUSKALE"></span><span class="target" id="graph_8hpp_1a5e41188f16a381c8915a17a22228e691a1ef8aef4571bbc6dcb07d7b363576ee2"></span><em class="property">enumerator </em><code class="sig-name descname">KRUSKAL</code><a class="headerlink" href="#_CPPv4N9Algorithm7KRUSKALE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N9Algorithm4PRIME">
+<span id="_CPPv3N9Algorithm4PRIME"></span><span id="_CPPv2N9Algorithm4PRIME"></span><span class="target" id="graph_8hpp_1a5e41188f16a381c8915a17a22228e691ae152edbace7363800fadfe71edc00233"></span><em class="property">enumerator </em><code class="sig-name descname">PRIM</code><a class="headerlink" href="#_CPPv4N9Algorithm4PRIME" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt id="_CPPv4I_9AlgorithmE5Graph">
+<span id="_CPPv3I_9AlgorithmE5Graph"></span><span id="_CPPv2I_9AlgorithmE5Graph"></span>template&lt;<a class="reference internal" href="#_CPPv49Algorithm" title="Algorithm">Algorithm</a> <code class="sig-name descname">alg</code> = <a class="reference internal" href="#_CPPv4N9Algorithm7KRUSKALE" title="KRUSKAL">KRUSKAL</a>&gt;<br /><span class="target" id="classGraph"></span><em class="property">class </em><code class="sig-name descname">Graph</code><a class="headerlink" href="#_CPPv4I_9AlgorithmE5Graph" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N5Graph5GraphEv">
+<span id="_CPPv3N5Graph5GraphEv"></span><span id="_CPPv2N5Graph5GraphEv"></span><span id="Graph::Graph"></span><span class="target" id="classGraph_1a94470c27941c3eb9d4c91b0f0a7af802"></span><code class="sig-name descname">Graph</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = default<a class="headerlink" href="#_CPPv4N5Graph5GraphEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N5Graph5GraphERNSt6stringE">
+<span id="_CPPv3N5Graph5GraphERNSt6stringE"></span><span id="_CPPv2N5Graph5GraphERNSt6stringE"></span><span id="Graph::Graph__ssR"></span><span class="target" id="classGraph_1ab4bb9fc6d7826bbd550b89153c63cf0c"></span><code class="sig-name descname">Graph</code><span class="sig-paren">(</span>std::string &amp;<em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5Graph5GraphERNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor to create <a class="reference internal" href="#classGraph"><span class="std std-ref">Graph</span></a> object from a file. </p>
+<p><dl class="simple">
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">alg</span></code>: which algorithm to be used in MST calculation </p></li>
+</ul>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: File that contains the adjacency list representation of graph </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N5Graph5GraphEPKc">
+<span id="_CPPv3N5Graph5GraphEPKc"></span><span id="_CPPv2N5Graph5GraphEPKc"></span><span id="Graph::Graph__cCP"></span><span class="target" id="classGraph_1a47ad2cadaa3bb34fc9718472f13cec5b"></span><code class="sig-name descname">Graph</code><span class="sig-paren">(</span><em class="property">const</em> char *<em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5Graph5GraphEPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructor to create <a class="reference internal" href="#classGraph"><span class="std std-ref">Graph</span></a> object from a file. </p>
+<p><dl class="simple">
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">alg</span></code>: which algorithm to be used in MST calculation </p></li>
+</ul>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: File that contains the adjacency list representation of graph </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N5Graph10computeMSTEv">
+<span id="_CPPv3N5Graph10computeMSTEv"></span><span id="_CPPv2N5Graph10computeMSTEv"></span><span id="Graph::computeMST"></span><span class="target" id="classGraph_1a9f1498b1034e473234fd1a91c2e8d47c"></span><a class="reference internal" href="#_CPPv48perfData" title="perfData">perfData</a> <code class="sig-name descname">computeMST</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5Graph10computeMSTEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Calculate MST of the entire graph by either Kruskal’s or Prim’s based on the initialization of the graph. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p><a class="reference internal" href="#structperfData"><span class="std std-ref">perfData</span></a> struct that has elapsed time and MST weight </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N5Graph12recomputeMSTERK4Edge">
+<span id="_CPPv3N5Graph12recomputeMSTERK4Edge"></span><span id="_CPPv2N5Graph12recomputeMSTERK4Edge"></span><span id="Graph::recomputeMST__EdgeCR"></span><span class="target" id="classGraph_1a483ab0bc6839e2aef34582944fa34b31"></span><a class="reference internal" href="#_CPPv48perfData" title="perfData">perfData</a> <code class="sig-name descname">recomputeMST</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N5Graph4EdgeE" title="Graph::Edge">Edge</a> &amp;<em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5Graph12recomputeMSTERK4Edge" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Update the existing MST with the additional edge provided. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p><a class="reference internal" href="#structperfData"><span class="std std-ref">perfData</span></a> struct that has elapsed time and MST weight </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">e</span></code>: <a class="reference internal" href="#structGraph_1_1Edge"><span class="std std-ref">Edge</span></a> to be added </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt id="_CPPv4N5Graph4EdgeE">
+<span id="_CPPv3N5Graph4EdgeE"></span><span id="_CPPv2N5Graph4EdgeE"></span><span id="Graph::Edge"></span><span class="target" id="structGraph_1_1Edge"></span><em class="property">struct </em><code class="sig-name descname">Edge</code><a class="headerlink" href="#_CPPv4N5Graph4EdgeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Struct to hold weighted directed edge information </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N5Graph4Edge3srcE">
+<span id="_CPPv3N5Graph4Edge3srcE"></span><span id="_CPPv2N5Graph4Edge3srcE"></span><span id="Graph::Edge::src__unsigned"></span><span class="target" id="structGraph_1_1Edge_1a8e931bf1a7b8c8fa62423918fb32735f"></span>unsigned <code class="sig-name descname">src</code><a class="headerlink" href="#_CPPv4N5Graph4Edge3srcE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N5Graph4Edge4destE">
+<span id="_CPPv3N5Graph4Edge4destE"></span><span id="_CPPv2N5Graph4Edge4destE"></span><span id="Graph::Edge::dest__unsigned"></span><span class="target" id="structGraph_1_1Edge_1a12298bb3c2183a4fef81b021232e442d"></span>unsigned <code class="sig-name descname">dest</code><a class="headerlink" href="#_CPPv4N5Graph4Edge4destE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N5Graph4Edge6weightE">
+<span id="_CPPv3N5Graph4Edge6weightE"></span><span id="_CPPv2N5Graph4Edge6weightE"></span><span id="Graph::Edge::weight__i"></span><span class="target" id="structGraph_1_1Edge_1a02a6c57d3abb2a883a475d00ad0debea"></span>int <code class="sig-name descname">weight</code><a class="headerlink" href="#_CPPv4N5Graph4Edge6weightE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../genindex.html" class="btn btn-neutral float-right" title="Site Map" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../README.html" class="btn btn-neutral" title="Minimum Spanning Tree" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, M.Mucahid Benlioglu.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
