@@ -47,7 +47,7 @@ if (Doxygen_FOUND AND Sphinx_FOUND)
 
     add_custom_command(OUTPUT ${SPHINX_PLOT}
             COMMAND
-            mkdir -p results && ln -fs ${CMAKE_SOURCE_DIR}/results/_plots.png results
+            mkdir -p results && cp -f ${CMAKE_SOURCE_DIR}/results/_plots.png results/
             DEPENDS ${SPHINX_INDEX_FILE}
             WORKING_DIRECTORY ${SPHINX_BUILD})
 
